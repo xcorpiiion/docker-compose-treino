@@ -3,12 +3,15 @@ version: '3.8'
 services:
   # O Maestro (Eureka) 🎩
   eureka:
-    # Em vez de 'image', usamos 'build'.
-    # O ponto (.) diz: "Procure a pasta eureka-server aqui do lado"
+    # BUILD CONTEXT (A Grande Mudança)
+    # Em vez de 'image: mysql', usamos 'build'.
+    # "../../eureka-docker" diz ao Docker: "Saia desta pasta e vá na vizinha buscar o Dockerfile".
     build: ../../eureka-docker
     container_name: eureka-server
     ports:
       - "8761:8761"
+    # NETWORK (A Sala VIP)
+    # Colocamos nome na rede para garantir que os serviços se enxerguem.
     networks:
       - spring-cloud-network
     # Dica de saúde: O Eureka demora para subir.
