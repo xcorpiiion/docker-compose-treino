@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  # O Maestro (Eureka) 🎩
+  eureka:
+    # Em vez de 'image', usamos 'build'.
+    # O ponto (.) diz: "Procure a pasta eureka-server aqui do lado"
+    build: ../../eureka-docker
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-cloud-network
+    # Dica de saúde: O Eureka demora para subir.
+    # O 'restart' garante que ele tente de novo se falhar no boot.
+    restart: always
+
+# A Rede (A Sala de Reunião dos Microserviços) 🌐
+networks:
+  spring-cloud-network:
+    driver: bridge
